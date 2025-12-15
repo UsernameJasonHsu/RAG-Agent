@@ -1,0 +1,33 @@
+# LangChain 新架構核心
+langchain==0.3.25
+langchain-core==0.3.63
+langchain-community==0.3.7
+langchain-openai==0.2.0
+
+# LangSmith (追蹤/觀測)
+langsmith==0.1.147
+
+# Hugging Face
+huggingface-hub==0.36.0
+transformers==4.40.2
+sentence-transformers==3.0.1
+
+# 向量資料庫
+faiss-cpu==1.9.0
+
+# Web framework
+fastapi==0.115.0
+uvicorn==0.32.0
+jinja2==3.1.4
+
+# Database
+SQLAlchemy==2.0.35
+mysql-connector-python==9.0.0
+
+# 環境變數管理
+python-dotenv==1.0.1
+pyarrow==14.0.2
+
+# Pydantic v2（新架構必須）
+pydantic==2.12.4
+

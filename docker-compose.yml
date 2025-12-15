@@ -1,0 +1,33 @@
+# version: '3.9'
+
+services:
+  fastapi:
+    build: .
+    container_name: rag_app
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./app:/app
+      - ./faiss_index:/faiss_index
+    env_file:
+      - .env
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:8.0
+    container_name: nlp_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: rag_db
+      MYSQL_USER: rag_user
+      MYSQL_PASSWORD: rag_pass
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./sql/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+
+volumes:
+  mysql_data:
