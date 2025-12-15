@@ -43,27 +43,39 @@ def has_changes(cwd=None):
         errors="ignore"
     )
     return bool(result.stdout.strip())
-    
-def auto_push(remote_url=None, branch="main", cwd=None):
-    """自動 push 到 GitHub，如果沒有 remote 就提示設定"""
-    # 檢查是否已有 remote
-    remotes = subprocess.run(
-        [GIT_PATH, "remote", "-v"],
+
+def get_current_branch(cwd=None):
+    result = subprocess.run(
+        [GIT_PATH, "rev-parse", "--abbrev-ref", "HEAD"],
         cwd=cwd,
         capture_output=True,
         text=True,
         encoding="utf-8",
         errors="ignore"
-    ).stdout.strip()
+    )
+    return result.stdout.strip()
+    
+def auto_push(remote_url=None, branch="main", cwd=None):
+    # """自動 push 到 GitHub，如果沒有 remote 就提示設定"""
+    # # 檢查是否已有 remote
+    # remotes = subprocess.run(
+    #     [GIT_PATH, "remote", "-v"],
+    #     cwd=cwd,
+    #     capture_output=True,
+    #     text=True,
+    #     encoding="utf-8",
+    #     errors="ignore"
+    # ).stdout.strip()
 
-    if not remotes:
-        if remote_url:
-            print("🔗 設定遠端 origin...")
-            run_git_command(["remote", "add", "origin", remote_url], cwd=cwd)
-        else:
-            print("⚠️ 尚未設定遠端，請提供 remote_url，例如：")
-            print("   git remote add origin https://github.com/你的帳號/你的專案.git")
-            return
+    # if not remotes:
+    #     if remote_url:
+    #         print("🔗 設定遠端 origin...")
+    #         run_git_command(["remote", "add", "origin", remote_url], cwd=cwd)
+    #     else:
+    #         print("⚠️ 尚未設定遠端，請提供 remote_url，例如：")
+    #         print("   git remote add origin https://github.com/你的帳號/你的專案.git")
+    #         return
+    branch = get_current_branch(cwd)
 
     print(f"🚀 推送到 GitHub ({branch})...")
     run_git_command(["push", "-u", "origin", branch], cwd=cwd)
