@@ -4,30 +4,51 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>智慧問答系統</title>
-  <link rel="stylesheet" href="/static/style.css" />
+  <link rel="stylesheet" href="/static/style.css?v=20251224" />
 </head>
 <body>
-  <section class="hero">
-    <h1>智慧問答系統</h1>
-    <p>輸入你的問題，讓 AI 為你解答</p>
-    <form id="qa-form">
-      <input type="text" id="question" placeholder="請輸入問題..." required />
-      <select id="agent-select">
-        <option value="default">預設 Agent</option>
-        <option value="finance">財經 Agent</option>
-        <option value="medical">醫療 Agent</option>
-        <option value="legal">法律 Agent</option>
-        <option value="tech">科技 Agent</option>
-      </select>
-      <button type="submit">送出</button>
-    </form>
-    <div id="answer-box"></div>
-  </section>
+  <!-- 頂部錨點 -->
+  <div id="top"></div>
 
-  <section class="info">
-    <h2>什麼是 RAG？</h2>
-    <p>RAG（Retrieval-Augmented Generation）是一種結合資料檢索與生成式 AI 的技術。</p>
-  </section>
+  <!-- 導覽列 -->
+  <nav class="navbar">
+    <div class="nav-left">智慧問答系統</div>
+    <div class="nav-right">
+      <a href="#rag-info">RAG</a>
+      <a href="#faq">FAQ</a>
+      <a href="#top">回到最上層 ↑</a>
+    </div>
+  </nav>
+
+  <div class="page">
+    <section class="hero card">
+      <h1>智慧問答系統</h1>
+      <p class="subtitle">輸入你的問題，讓 AI 為你解答</p>
+      <form id="qa-form" class="form-inline">
+        <input type="text" id="question" placeholder="請輸入問題..." required />
+        <select id="agent-select">
+          <option value="default">預設 Agent</option>
+          <option value="finance">財經 Agent</option>
+          <option value="medical">醫療 Agent</option>
+          <option value="legal">法律 Agent</option>
+          <option value="tech">科技 Agent</option>
+        </select>
+        <button type="submit" class="btn-primary">送出</button>
+      </form>
+
+      <div id="answer-box" class="answer"></div>
+    </section>
+
+    <section class="info" id="rag-info">
+      <h2>什麼是 RAG？</h2>
+      <p>RAG（Retrieval-Augmented Generation）是一種結合資料檢索與生成式 AI 的技術。</p>
+    </section>
+
+    <section class="info" id="faq">
+      <h2>常見問題</h2>
+      <p>例如：如何選擇合適的 Agent？如何撰寫更精準的問題？</p>
+    </section>
+  </div>
 
   <script src="/static/script.js"></script>
 </body>
