@@ -4,7 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>智慧問答系統</title>
-  <link rel="stylesheet" href="/static/style.css?v=20251224" />
+  <!-- 版本要記得修改 -->
+  <link rel="stylesheet" href="/static/style.css?v=20251229" />
 </head>
 <body>
   <!-- 頂部錨點 -->
@@ -36,20 +37,80 @@
         <button type="submit" class="btn-primary">送出</button>
       </form>
 
-      <div id="answer-box" class="answer"></div>
+      <div id="answer-card" class="answer-card">
+        <div id="answer-box" class="answer"></div>
+        <div id="feedback" class="feedback hidden">
+          <p>這個回答有幫助嗎？</p>
+          <div class="feedback-buttons">
+            <button class="btn-feedback" data-type="yes">👍 有幫助</button>
+            <button class="btn-feedback" data-type="no">👎 沒幫助</button>
+          </div>
+          <form id="feedback-form">
+            <textarea id="feedback-text" placeholder="留下你的意見..." rows="3"></textarea>
+            <button type="submit">送出</button>
+          </form>
+        </div>
+      </div>
+      <div id="loading-bar" class="loading-bar"></div>
+
     </section>
 
     <section class="info" id="rag-info">
       <h2>什麼是 RAG？</h2>
       <p>RAG（Retrieval-Augmented Generation）是一種結合資料檢索與生成式 AI 的技術。</p>
+
+      <div class="rag-icons">
+        <div class="rag-icon">
+          <!-- 檢索資料 -->
+          <svg class="icon" viewBox="0 0 24 24" aria-label="檢索資料">
+            <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="1.8"/>
+            <line x1="16.5" y1="16.5" x2="21" y2="21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="8" y1="11" x2="14" y2="11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="11" y1="8" x2="11" y2="14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+          <span>檢索資料</span>
+        </div>
+
+        <div class="rag-icon">
+          <!-- 生成回答 -->
+          <svg class="icon" viewBox="0 0 24 24" aria-label="生成回答">
+            <rect x="3" y="4" width="18" height="14" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M7 8h10M7 12h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M8 20l4-2 4 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>生成回答</span>
+        </div>
+
+        <div class="rag-icon">
+          <!-- 結合結果 -->
+          <svg class="icon" viewBox="0 0 24 24" aria-label="結合結果">
+            <circle cx="7.5" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+            <circle cx="16.5" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M10 12h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+          <span>結合結果</span>
+        </div>
+      </div>
     </section>
 
     <section class="info" id="faq">
       <h2>常見問題</h2>
-      <p>例如：如何選擇合適的 Agent？如何撰寫更精準的問題？</p>
+      <div class="faq-item">
+        <button class="faq-question">如何選擇合適的 Agent？</button>
+        <div class="faq-answer">
+          <p>依照你的問題領域選擇對應的 Agent，例如財經、醫療、法律或科技。</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">如何撰寫更精準的問題？</button>
+        <div class="faq-answer">
+          <p>盡量提供完整的背景與細節，避免模糊詞彙，讓 AI 更容易理解。</p>
+        </div>
+      </div>
     </section>
   </div>
 
-  <script src="/static/script.js"></script>
+  <!-- 版本要記得修改 -->
+  <script src="/static/script.js?v=20251229"></script>
 </body>
 </html>
