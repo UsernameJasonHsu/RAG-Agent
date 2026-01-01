@@ -40,11 +40,10 @@ section {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: stretch;
   padding: 2.5rem;
   text-align: left;
   scroll-snap-align: start;
-  
-  align-items: stretch;
 }
 
 .card {
@@ -60,7 +59,6 @@ section {
 h1 {
   font-size: clamp(2rem, 4vw, 3rem);
   margin: 0 0 0.75rem 0;
-
   line-height: 1.1;
   letter-spacing: -0.02em;
 }
@@ -68,7 +66,6 @@ h1 {
 .subtitle {
   color: var(--text-secondary);
   font-size: 1.05rem;
-
   margin-bottom: 1.5rem;
 }
 
@@ -84,7 +81,6 @@ h2 {
   grid-template-columns: 1fr minmax(160px, 200px) auto;
   gap: 0.75rem;
   margin-top: 1rem;
-
   align-items: center;
 }
 
@@ -136,14 +132,17 @@ input:focus, select:focus {
   font-size: 1.05rem;
   max-width: 720px;
   line-height: 1.6;
-  opacity: 0;
-  transform: translateY(6px);
-  transition: opacity 220ms ease, transform 220ms ease;
   font-weight: 600;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7); /* 增加陰影，避免被背景吃掉 */
+  text-align: left;       /* 文字靠左對齊 */
+  margin: 0;              /* 移除預設 margin */
+  padding: 0;             /* 移除多餘 padding */
+  text-shadow: 0 1px 3px rgba(0,0,0,0.7); /* 增加陰影，避免被背景吃掉 */
+  color: #ffffff !important; /* 改為白字，確保清晰 */
+  opacity: 1 !important; /* 強制顯示 */
+  transform: translateY(0) !important;
+  transition: opacity 220ms ease, transform 220ms ease;
 }
 
-/* 顯示時淡入動畫 */
 .answer.show {
   opacity: 1;
   transform: translateY(0);
@@ -151,14 +150,7 @@ input:focus, select:focus {
 
 .answer.loading { color: #facc15;   /* 黃色：思考中 */ }
 .answer.success { color: #60a5fa;   /* 藍色：回答完成 */ }
-.answer.error { color: #f87171;   /* 紅色：錯誤 */ }
-
-/* 強化回答文字可見性 */
-.answer {
-  color: #ffffff !important; /* 改為白字，確保清晰 */
-  opacity: 1 !important; /* 強制顯示 */
-  transform: translateY(0) !important;
-}
+.answer.error { color: #f87171;     /* 紅色：錯誤 */ }
 
 /* ─── Info 區塊 ───────────────────────────── */
 .info {
@@ -182,7 +174,6 @@ html, body {
   scroll-behavior: smooth;
 }
 
-/* ─── 下拉選單選項 ───────────────────────────── */
 section {
   scroll-snap-align: start;
 }
@@ -230,4 +221,215 @@ select option {
 
 .nav-right a:hover {
   color: #e2e8f0;
+}
+
+.nav-right a.active {
+  color: var(--accent);
+  border-bottom: 2px solid var(--accent);
+}
+
+/* ─── FAQ 手風琴 ───────────────────────────── */
+.faq-item {
+  margin-bottom: 1rem;
+}
+
+.faq-question {
+  width: 100%;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 160ms ease;
+}
+
+.faq-question:hover {
+  background: rgba(255,255,255,0.12);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 1rem;
+  transition: max-height 300ms ease, padding 300ms ease;
+}
+
+.faq-item.active .faq-answer {
+  max-height: 200px; /* 足夠顯示文字 */
+  padding: 0.75rem 1rem;
+}
+
+/* ─── RAG 補充圖示 ───────────────────────────── */
+.rag-icons {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.rag-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: var(--radius-sm);
+  padding: 1rem;
+  width: 140px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  transition: transform 160ms ease, background 160ms ease;
+  color: var(--text-primary);
+}
+
+.rag-icon:hover {
+  transform: translateY(-4px);
+  background: rgba(255,255,255,0.12);
+}
+
+.icon {
+  width: 48px;
+  height: 48px;
+}
+
+.rag-icon span {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+/* ─── Loading Bar ───────────────────────────── */
+.loading-bar {
+  position: relative;
+  width: 100%;
+  max-width: 720px;
+  height: 4px;
+  margin-top: 0.75rem;
+  background: rgba(255,255,255,0.15);
+  border-radius: 2px;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+
+.loading-bar.active {
+  opacity: 1;
+}
+
+.loading-bar::before {
+  content: "";
+  position: absolute;
+  left: -40%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-strong));
+  animation: loading-slide 1.2s infinite;
+}
+
+@keyframes loading-slide {
+  0% { left: -40%; }
+  50% { left: 100%; }
+  100% { left: 100%; }
+}
+
+/* ─── 回答區塊卡片化 ───────────────────────────── */
+.answer-card {
+  display: none; /* 預設隱藏 */
+  margin: 0.75rem 0;       /* 上下空白縮小 */
+  padding: 1rem 1.25rem;   /* 內部文字距離保持適中 */
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  backdrop-filter: blur(var(--blur));
+  -webkit-backdrop-filter: blur(var(--blur));
+  box-shadow: var(--shadow-1);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+
+.answer-card.show {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.answer-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.35);
+}
+
+/* ─── 反饋區塊 ───────────────────────────── */
+.feedback.hidden {
+  display: none;
+}
+
+.feedback {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-top: 1px solid rgba(255,255,255,0.15);
+  color: var(--text-secondary);
+  opacity: 0;
+  transform: translateY(15px); /* 初始往下偏移 */
+  transition: opacity 500ms ease, transform 500ms ease;
+}
+
+.feedback.show {
+  display: block;
+  opacity: 1;
+  transform: translateY(0); /* 淡入＋滑入 */
+}
+
+.feedback p {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.feedback-buttons {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.btn-feedback {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-sm);
+  background: var(--card-bg);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: background 200ms ease, color 200ms ease;
+}
+
+.btn-feedback:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+#feedback-form textarea {
+  width: 100%;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--card-border);
+  padding: 0.5rem;
+  resize: vertical;
+  background: rgba(255,255,255,0.06);
+  color: var(--text-primary);
+}
+
+#feedback-form button {
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+  transition: background 200ms ease;
+}
+
+#feedback-form button:hover {
+  background: var(--accent-strong);
 }
